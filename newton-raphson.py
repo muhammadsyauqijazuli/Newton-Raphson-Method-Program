@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Toleransi error
-EPSILON = 0.001
+EPSILON = 1e-13
 
 # Fungsi yang akan dicari akarnya
 def f(x):
@@ -17,7 +17,7 @@ def newtonRaphson(x0):
     h = f(x0) / f_derivative(x0)
     iter_count = 0  # Untuk menghitung jumlah iterasi
     
-    print(f"Iterasi ke-{iter_count}: x = {x0}")
+    print(f"Iterasi ke-{iter_count}: x = {x0}, f(x) = {f(x0)}")
     x_values = [x0]
     y_values = [f(x0)]
     
@@ -25,7 +25,7 @@ def newtonRaphson(x0):
         h = f(x0) / f_derivative(x0)
         x0 = x0 - h
         iter_count += 1
-        print(f"Iterasi ke-{iter_count}: x = {x0}")
+        print(f"Iterasi ke-{iter_count}: x = {x0}, f(x) = {f(x0)}")
         x_values.append(x0)
         y_values.append(f(x0))
     
