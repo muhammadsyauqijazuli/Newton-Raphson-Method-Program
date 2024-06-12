@@ -1,8 +1,6 @@
-# Newton Raphson
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Toleransi error
 EPSILON = 1e-13
 
 # Fungsi yang akan dicari akarnya
