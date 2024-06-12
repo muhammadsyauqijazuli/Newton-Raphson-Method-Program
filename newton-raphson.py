@@ -1,10 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 EPSILON = 1e-13
+MAX_ITER = 1000
 
-
+# Fungsi yang akan dicari akarnya
 def f(x):
     return 4*x**3 - 15*x**2 + 17*x - 16
 
@@ -14,20 +14,32 @@ def f_derivative(x):
 
 # Implementasi metode Newton-Raphson
 def newtonRaphson(x0):
-    h = f(x0) / f_derivative(x0)
     iter_count = 0  # Untuk menghitung jumlah iterasi
     
     print(f"Iterasi ke-{iter_count}: x = {x0}, f(x) = {f(x0)}")
     x_values = [x0]
     y_values = [f(x0)]
     
-    while abs(h) >= EPSILON:
-        h = f(x0) / f_derivative(x0)
+    while iter_count < MAX_ITER:
+        f_x0 = f(x0)
+        f_prime_x0 = f_derivative(x0)
+        
+        if abs(f_prime_x0) < EPSILON:  # Hindari pembagian dengan nol
+            print("Turunan mendekati nol, metode Newton-Raphson gagal.")
+            break
+        
+        h = f_x0 / f_prime_x0
+        if abs(h) < EPSILON:
+            break
+        
         x0 = x0 - h
         iter_count += 1
         print(f"Iterasi ke-{iter_count}: x = {x0}, f(x) = {f(x0)}")
         x_values.append(x0)
         y_values.append(f(x0))
+    
+    if iter_count == MAX_ITER:
+        print("Metode Newton-Raphson gagal konvergen setelah mencapai iterasi maksimum.")
     
     return x0, x_values, y_values
 
@@ -54,7 +66,13 @@ def plot_function_and_iterations(x_values, y_values):
     plt.show()
 
 if __name__ == "__main__":
-    x0 = float(input("Masukkan tebakan awal: "))
+    while True:
+        try:
+            x0 = float(input("Masukkan tebakan awal: "))
+            break
+        except ValueError:
+            print("Input tidak valid. Silakan masukkan angka.")
+    
     root, x_values, y_values = newtonRaphson(x0)
     print(f"Akar persamaan adalah: {root}")
     plot_function_and_iterations(x_values, y_values)
