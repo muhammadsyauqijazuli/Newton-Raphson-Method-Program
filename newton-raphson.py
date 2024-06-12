@@ -1,10 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Toleransi error
+
 EPSILON = 1e-13
 
-# Fungsi yang akan dicari akarnya
+
 def f(x):
     return 4*x**3 - 15*x**2 + 17*x - 16
 
